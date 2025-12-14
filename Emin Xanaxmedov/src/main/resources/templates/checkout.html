@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --red:#e3423d;--red-dark:#cf3a35;--gray-50:#f9fafb;--gray-100:#f5f6f8;--gray-200:#eceef2;
+      --gray-300:#d9dde4;--gray-500:#a1a8b3;--gray-700:#5c6470;--black:#121417;--white:#ffffff
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--black);background:#fff}
+    .promo{background:var(--red);color:#fff;font-size:14px;line-height:1;padding:10px 16px;text-align:center}
+    .promo a{color:#ffecec;text-decoration:underline}
+
+    .nav{display:flex;align-items:center;gap:20px;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--gray-200);background:#fff}
+    .nav .brand{font-weight:700;font-size:22px}
+    .nav .links{display:flex;align-items:center;gap:18px}
+    .nav a{color:var(--black);text-decoration:none;font-weight:500}
+    .nav .pill{background:#f2f3f5;border:1px solid var(--gray-300);padding:8px 14px;border-radius:10px;color:var(--black)}
+    .nav .search{display:flex;align-items:center;gap:8px;background:#f6f7f9;border:1px solid var(--gray-300);border-radius:10px;padding:8px 12px;width:320px}
+    .nav .search input{border:0;outline:0;background:transparent;width:100%}
+
+    .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:1.2fr 1fr;gap:28px}
+    @media(max-width:900px){ .grid{grid-template-columns:1fr} .nav{flex-wrap:wrap} .nav .search{width:100%} }
+
+    h2{margin:0 0 14px}
+    .card{background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:18px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+    .field label{font-size:13px;color:var(--gray-700)}
+    .field input,.field select{border:1px solid var(--gray-300);border-radius:8px;padding:10px 12px;font:inherit}
+
+    .summary .logos{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .summary .logos img{height:26px}
+    .summary .line{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--gray-200)}
+    .summary .total{font-weight:700}
+    .btn{background:var(--red);color:#fff;border-radius:8px;padding:12px 16px;display:inline-block;text-decoration:none;border:0;cursor:pointer}
+    .btn:hover{background:var(--red-dark)}
+    .btn.block{width:100%;text-align:center}
+    .muted{color:var(--gray-700);font-size:14px}
+  </style>
+</head>
+<body>
+  <div class="promo">Summer Sale For All Swim Suits And Free Express Delivery – OFF 50%! <a href="/shop">ShopNow</a></div>
+
+  <div class="nav">
+    <div class="brand">Emin Xanaxmedov</div>
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/contact">Contact</a>
+      <a href="/about">About</a>
+      <a href="/signup">Sign Up</a>
+      <a class="pill" href="/shop">Shop</a>
+    </div>
+    <div class="search"><input placeholder="What are you looking for?" aria-label="Search"><span>🔍</span></div>
+    <a class="pill" th:if="${session.user == null}" href="/login">log in</a>
+    <span class="pill" th:if="${session.user != null}" th:text="${session.user}">user</span>
+    <a class="pill" th:if="${session.user != null}" href="/logout">Logout</a>
+  </div>
+
+  <div class="wrap">
+    <div class="grid">
+      <div class="card">
+        <h2>Shipping details</h2>
+        <div class="row">
+          <div class="field"><label>First name</label><input type="text" placeholder="First name"></div>
+          <div class="field"><label>Last name</label><input type="text" placeholder="Last name"></div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>State</label>
+            <select>
+              <option>Choose...</option>
+              <option>AZ</option><option>CA</option><option>NY</option><option>TX</option>
+            </select>
+          </div>
+          <div class="field"><label>City</label><input type="text" placeholder="City"></div>
+        </div>
+        <div class="field"><label>Address</label><input type="text" placeholder="Street, house, apt"></div>
+        <div class="row">
+          <div class="field"><label>Zip</label><input type="text" placeholder="000000"></div>
+          <div class="field"><label>Tel</label><input type="tel" placeholder="+7 (___) ___-__-__"></div>
+        </div>
+        <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+        <div class="field" style="flex-direction:row;align-items:center;gap:8px;margin-top:6px">
+          <input id="agree" type="checkbox" style="width:18px;height:18px"><label for="agree" class="muted">Agree to terms and conditions</label>
+        </div>
+      </div>
+
+      <div class="card summary">
+        <h2>Payment</h2>
+        <div class="logos">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="MasterCard">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Discover_Card_logo.svg" alt="Discover">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/UnionPay_logo.svg" alt="UnionPay">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/JCB_logo.svg" alt="JCB">
+        </div>
+        <div class="field"><label>Card number</label><input type="text" inputmode="numeric" placeholder="0000 0000 0000 0000"></div>
+        <div class="row-3">
+          <div class="field"><label>Expiration (MM)</label><input type="text" placeholder="MM"></div>
+          <div class="field"><label>Expiration (YY)</label><input type="text" placeholder="YY"></div>
+          <div class="field"><label>Card security code</label><input type="text" placeholder="CVC"></div>
+        </div>
+
+        <div class="line"><div>Subtotal</div><div>189.96999999999997$</div></div>
+        <div class="line"><div>Shipping</div><div>FREE</div></div>
+        <div class="line total"><div>Total</div><div>189.96999999999997$</div></div>
+
+        <button class="btn block" id="placeOrder">Place order</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('placeOrder')?.addEventListener('click', function(){
+      alert('Order placed');
+      window.location.href = '/my-orders';
+    });
+  </script>
+</body>
+</html>

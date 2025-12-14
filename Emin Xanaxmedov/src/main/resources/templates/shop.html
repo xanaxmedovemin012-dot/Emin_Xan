@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emin Xanaxmedov</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/ccs/shop.css">
+  <style>
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:1000}
+    .modal{background:#fff;border-radius:12px;max-width:980px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.2);display:flex;gap:32px;padding:28px}
+    .modal .left{flex:1}
+    .modal .right{width:360px}
+    .modal h3{margin:0 0 16px 0;font-size:20px}
+    .row{display:flex;gap:12px}
+    .row>*{flex:1}
+    .form-label{font-size:13px;margin-bottom:6px;display:block;color:#444}
+    .input{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px}
+    .icons-row{display:flex;gap:8px;margin-bottom:12px}
+    .icons-row img{height:24px}
+    .summary{border-top:1px solid #eee;margin-top:12px;padding-top:12px}
+    .summary .line{display:flex;justify-content:space-between;padding:6px 0}
+    .btn.primary{background:#e53935;color:#fff;border:none;border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .btn.secondary{background:#f3f4f6;color:#111;border:none;border-radius:8px;padding:10px 14px;cursor:pointer}
+    .modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:16px}
+    .error{color:#c62828;font-size:12px;margin-top:6px;display:none}
+    @media(max-width:900px){.modal{flex-direction:column}.modal .right{width:100%}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+
+    <div class="page-title">
+      <h1>Смартфоны</h1>
+      
+      <a class="btn outline" href="/my-orders">Моя карзина</a>
+      <a class="btn outline" href="/products/new">Create product</a>
+      <a class="btn outline" href="/logout">Выйти</a>
+    </div>
+
+    <div class="layout">
+      <!-- Sidebar filters -->
+      <aside class="filters">
+        <h3>Фильтры</h3>
+
+        <div class="filter">
+          <div class="title">Бренд</div>
+          <div class="chips">
+            <button class="chip">Apple</button>
+            <button class="chip">Samsung</button>
+            <button class="chip">Xiaomi</button>
+            <button class="chip">Realme</button>
+          </div>
+        </div>
+
+        <div class="filter">
+          <div class="title">Цена</div>
+          <div class="price-range">
+            <input type="number" placeholder="от" min="0">
+            <input type="number" placeholder="до" min="0">
+          </div>
+        </div>
+
+        <div class="filter">
+          <div class="title">Память</div>
+          <div class="chips">
+            <button class="chip">128 ГБ</button>
+            <button class="chip">256 ГБ</button>
+            <button class="chip">512 ГБ</button>
+            <button class="chip">1 ТБ</button>
+          </div>
+        </div>
+
+        <div class="filter">
+          <div class="title">Цвет</div>
+          <div class="chips">
+            <button class="chip">Чёрный</button>
+            <button class="chip">Белый</button>
+            <button class="chip">Синий</button>
+            <button class="chip">Зелёный</button>
+          </div>
+        </div>
+
+        <div class="filter-actions">
+          <button class="btn">Применить</button>
+          <button class="btn outline" type="button">Сбросить</button>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main>
+        <div class="toolbar">
+          <div class="sort">
+            <span>Сортировка:</span>
+            <select class="select" aria-label="Сортировка">
+              <option>По популярности</option>
+              <option>Сначала дешевле</option>
+              <option>Сначала дороже</option>
+              <option>Новинки</option>
+            </select>
+          </div>
+          <div class="view">
+            <button class="icon-btn" aria-label="Сетка">▦</button>
+            <button class="icon-btn" aria-label="Список">≣</button>
+          </div>
+        </div>
+
+        <div class="active-filters" aria-live="polite">
+          <div class="tag">Apple <button title="Убрать">×</button></div>
+          <div class="tag">256 ГБ <button title="Убрать">×</button></div>
+        </div>
+
+        <section class="products">
+          <div class="grid">
+            <th:block th:if="${session.products != null}">
+              <article class="card" th:each="p : ${session.products}"
+                       th:attr="data-brand=${p.brand},data-price=${p.price}">
+                <div class="thumb">
+                  <img th:attr="alt=${p.brand + ' ' + p.model}" th:src="${#strings.isEmpty(p.imageUrl) ? 'https://via.placeholder.com/600x400?text=No+Image' : p.imageUrl}">
+                </div>
+                <div class="body">
+                  <h3 class="title" th:text="${p.brand + ' ' + p.model}">Product title</h3>
+                  <div class="price"><span class="now" th:text="${p.price + ' ₼'}">0 ₼</span></div>
+                  <div class="actions">
+                    <button class="btn">Купить</button>
+                    <button class="btn outline">В корзину</button>
+                  </div>
+                </div>
+              </article>
+            </th:block>
+            
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 16 Pro Max" src="https://kontakt.az/media/catalog/product/cache/fbd42596869cc4deb59edfc1ed742a64/t/m/tm-dg-sbp-1105-sm-2933_4.png">
+                <div class="badges">
+                  <span class="badge">Хит</span>
+                  <span class="badge sale">-12%</span>
+                </div>
+                <div class="icons">
+                  <button class="icon-btn" title="В избранное" aria-label="В избранное">❤</button>
+                  <button class="icon-btn" title="Сравнить" aria-label="Сравнить">≍</button>
+                </div>
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 16 Pro Max 256 GB Natural Titanium</h3>
+                <div class="colors" aria-label="Доступные цвета">
+                  <span class="color-dot black" title="Черный"></span>
+                  <span class="color-dot silver" title="Серебристый"></span>
+                  <span class="color-dot blue" title="Синий"></span>
+                  <span class="color-dot pink" title="Розовый"></span>
+                </div>
+                <div class="availability">В наличии</div>
+                <div class="price"><span class="now">3 199.99 ₼</span><span class="old">3 599.99 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">Купить</button>
+                  <button class="btn outline">В корзину</button>
+                </div>
+              </div>
+            </article>
+
+            
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 16" src="https://kontakt.az/media/catalog/product/cache/fbd42596869cc4deb59edfc1ed742a64/t/m/tm-dg-sbp-1105-sm-2891_1.png">
+                <div class="badges">
+                  <span class="badge sale">-9%</span>
+                </div>
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 16 128 GB White</h3>
+                <div class="price"><span class="now">2 059.99 ₼</span><span class="old">2 249.99 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">Купить</button>
+                  <button class="btn outline">В корзину</button>
+                </div>
+              </div>
+            </article>
+
+           
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 16" src="https://kontakt.az/media/catalog/product/t/m/tm-dg-sbp-1105-sm-2888_1.png">
+                <div class="badges">
+                  <span class="badge sale">-9%</span>
+                </div>
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 16 128 GB Pink</h3>
+                <div class="price"><span class="now">2 059.99 ₼</span><span class="old">2 249.99 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">Купить</button>
+                  <button class="btn outline">В корзину</button>
+                </div>
+              </div>
+            </article>
+
+           
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 13" src="https://kontakt.az/media/catalog/product/cache/fbd42596869cc4deb59edfc1ed742a64/t/m/tm-dg-sbp-1105-sm-1511.png">
+                <div class="badges">
+                  <span class="badge sale">-11%</span>
+                </div>
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 13 128 GB Starlight</h3>
+                <div class="price"><span class="now">1 229.99 ₼</span><span class="old">1 379.99 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">Купить</button>
+                  <button class="btn outline">В корзину</button>
+                </div>
+              </div>
+            </article>
+
+            
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 15" src="https://kontakt.az/media/catalog/product/cache/fbd42596869cc4deb59edfc1ed742a64/t/m/tm-dg-sbp-1105-sm-2473.png">
+                <div class="badges">
+                  <span class="badge">Хит</span>
+                  <span class="badge sale">-10%</span>
+                </div>
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 15 128 GB Blue</h3>
+                <div class="price"><span class="now">1 299 ₼</span><span class="old">1 449 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">Купить</button>
+                  <button class="btn outline">В корзину</button>
+                </div>
+              </div>
+            </article>
+
+          
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 15 Pro" src="https://kontakt.az/media/catalog/product/cache/fbd42596869cc4deb59edfc1ed742a64/t/m/tm-dg-sbp-1105-sm-25161.png">
+                <div class="badges">
+                  <span class="badge">Новинка</span>
+                </div>
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 15 Pro 256 GB Black Titanium</h3>
+                <div class="price"><span class="now">2 099 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">Купить</button>
+                  <button class="btn outline">В корзину</button>
+                </div>
+              </div>
+            </article>
+
+           
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 14" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXgSgQ94NApVKUzo-gzHPBfnuwgfounLmv_Q&s">
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 14 128 GB Purple</h3>
+                <div class="price"><span class="now">999 ₼</span><span class="old">1 099 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">Купить</button>
+                  <button class="btn outline">В корзину</button>
+                </div>
+              </div>
+            </article>
+
+            
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 13" src="https://kontakt.az/media/catalog/product/cache/fbd42596869cc4deb59edfc1ed742a64/5/3/530302-Product-0-I-637672995149033709_800x800-1-min_1_1_1.png">
+                <div class="badges">
+                  <span class="badge sale">Скидка</span>
+                </div>
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 13 128 GB Green</h3>
+                <div class="price"><span class="now">799 ₼</span><span class="old">899 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">Купить</button>
+                  <button class="btn outline">В корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone SE" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtF_dYyGQv-eHPW-8MhznSyxwrPq6vvEF5TA&s">
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone SE (2022) 64 GB (PRODUCT)RED</h3>
+                <div class="price"><span class="now">499 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">В корзину</button>
+                  <button class="btn outline">Купить</button>
+                </div>
+              </div>
+            </article>
+
+         
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 12" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA7VNm3YzMldIUkDGa_RSsNkBV_FpRE6RtuQ&s">
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 12 128 GB Blue</h3>
+                <div class="price"><span class="now">699 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">В корзину</button>
+                  <button class="btn outline">Купить</button>
+                </div>
+              </div>
+            </article>
+
+            
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 15 Plus" src="https://kontakt.az/media/catalog/product/cache/fbd42596869cc4deb59edfc1ed742a64/t/m/tm-dg-sbp-1105-sm-2468_12.png">
+                <div class="badges">
+                  <span class="badge sale">-7%</span>
+                </div>
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 15 Plus 128 GB Pink</h3>
+                <div class="price"><span class="now">1 899 ₼</span><span class="old">2 049 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">В корзину</button>
+                  <button class="btn outline">Купить</button>
+                </div>
+              </div>
+            </article>
+
+            
+            <article class="card">
+              <div class="thumb">
+                <img alt="iPhone 15 Pro Max" src="https://kontakt.az/media/catalog/product/cache/fbd42596869cc4deb59edfc1ed742a64/t/m/tm-dg-sbp-1105-sm-25161.png">
+                <div class="badges">
+                  <span class="badge">Новинка</span>
+                </div>
+              </div>
+              <div class="body">
+                <h3 class="title">iPhone 15 Pro Max 256 GB Blue Titanium</h3>
+                <div class="price"><span class="now">2 799 ₼</span></div>
+                <div class="actions">
+                  <button class="btn">В корзину</button>
+                  <button class="btn outline">Купить</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <nav class="pagination" aria-label="Пагинация">
+            <button class="page-btn" aria-label="Предыдущая">‹</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn" aria-label="Следующая">›</button>
+          </nav>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="payOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="payTitle">
+      <div class="left">
+        <h3 id="payTitle">Оплата картой</h3>
+        <div class="icons-row" aria-hidden="true">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Discover_Card_logo.svg" alt="Discover">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mir-logo.svg" alt="MIR">
+        </div>
+        <label class="form-label" for="cardName">Имя на карте</label>
+        <input class="input" id="cardName" autocomplete="cc-name" placeholder="Имя и фамилия">
+
+        <label class="form-label" for="cardNumber" style="margin-top:10px">Номер карты</label>
+        <input class="input" id="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000" maxlength="19">
+
+        <div class="row" style="margin-top:10px">
+          <div>
+            <label class="form-label" for="expMM">Месяц (MM)</label>
+            <input class="input" id="expMM" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="cc-exp-month">
+          </div>
+          <div>
+            <label class="form-label" for="expYY">Год (YY)</label>
+            <input class="input" id="expYY" inputmode="numeric" maxlength="2" placeholder="YY" autocomplete="cc-exp-year">
+          </div>
+          <div>
+            <label class="form-label" for="cvc">CVC</label>
+            <input class="input" id="cvc" inputmode="numeric" maxlength="4" placeholder="CVC" autocomplete="cc-csc">
+          </div>
+        </div>
+        <div id="payError" class="error">Проверьте данные карты</div>
+        <div class="modal-actions">
+          <button class="btn secondary" id="cancelPay" type="button">Отмена</button>
+          <button class="btn primary" id="confirmPay" type="button">Оплатить</button>
+        </div>
+      </div>
+      <div class="right">
+        <h3>Итого</h3>
+        <div class="summary">
+          <div class="line"><span>Subtotal</span><strong id="sumSubtotal">—</strong></div>
+          <div class="line"><span>Shipping</span><strong>FREE</strong></div>
+          <div class="line" style="border-top:1px solid #eee;margin-top:8px;padding-top:12px"><span>Total</span><strong id="sumTotal">—</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      function qp(obj){
+        return Object.entries(obj).map(([k,v])=>encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&');
+      }
+      function luhn(num){
+        const s = num.replace(/\s+/g,'');
+        if(!/^\d{13,19}$/.test(s)) return false;
+        let sum=0, dbl=false;
+        for(let i=s.length-1;i>=0;i--){
+          let d = +s[i];
+          if(dbl){ d*=2; if(d>9) d-=9; }
+          sum+=d; dbl=!dbl;
+        }
+        return sum%10===0;
+      }
+      function validExpiry(mm,yy){
+        const m = parseInt(mm,10); const y = parseInt(yy,10);
+        if(!(m>=1&&m<=12) || isNaN(y)) return false;
+        const now = new Date();
+        const year = 2000 + y;
+        const exp = new Date(year, m); // end of month
+        return exp > now;
+      }
+      function formatCard(val){
+        return val.replace(/[^\d]/g,'').slice(0,16).replace(/(\d{4})(?=\d)/g,'$1 ').trim();
+      }
+      const overlay = document.getElementById('payOverlay');
+      const sumSubtotal = document.getElementById('sumSubtotal');
+      const sumTotal = document.getElementById('sumTotal');
+      const nameEl = document.getElementById('cardName');
+      const numberEl = document.getElementById('cardNumber');
+      const mmEl = document.getElementById('expMM');
+      const yyEl = document.getElementById('expYY');
+      const cvcEl = document.getElementById('cvc');
+      const errorEl = document.getElementById('payError');
+      const cancelBtn = document.getElementById('cancelPay');
+      const confirmBtn = document.getElementById('confirmPay');
+
+      let pendingProductTitle = null;
+
+      numberEl.addEventListener('input',()=>{ numberEl.value = formatCard(numberEl.value); });
+
+      function openPay(subtotalText){
+        sumSubtotal.textContent = subtotalText || '—';
+        sumTotal.textContent = subtotalText || '—';
+        errorEl.style.display='none';
+        overlay.style.display='flex';
+        overlay.setAttribute('aria-hidden','false');
+        nameEl.focus();
+      }
+      function closePay(){
+        overlay.style.display='none';
+        overlay.setAttribute('aria-hidden','true');
+      }
+
+      cancelBtn.addEventListener('click', closePay);
+
+      async function completePurchase(){
+        if(!pendingProductTitle) return;
+        try{
+          const res = await fetch('/buy', {
+            method:'POST',
+            headers:{'Content-Type':'application/x-www-form-urlencoded'},
+            body: qp({product: pendingProductTitle})
+          });
+          if(res.status===200){
+            localStorage.setItem('hasCard','1');
+            alert('Покупка оформлена: ' + pendingProductTitle);
+            closePay();
+          }else if(res.status===401){
+            window.location.href='/login';
+          }else{
+            const txt = await res.text();
+            alert('Ошибка покупки: ' + txt);
+          }
+        }catch(e){
+          alert('Сетевая ошибка');
+        }
+      }
+
+      function validate(){
+        const ok = (
+          nameEl.value.trim().length>2 &&
+          luhn(numberEl.value) &&
+          validExpiry(mmEl.value, yyEl.value) &&
+          /^\d{3,4}$/.test(cvcEl.value)
+        );
+        errorEl.style.display = ok ? 'none' : 'block';
+        return ok;
+      }
+
+      confirmBtn.addEventListener('click', async ()=>{
+        if(!validate()) return;
+        await completePurchase();
+      });
+
+      document.querySelectorAll('.products .card').forEach(card=>{
+        const title = card.querySelector('.title')?.textContent?.trim() || 'product';
+        const priceText = card.querySelector('.price .now')?.textContent?.trim() || '';
+        const buyBtn = card.querySelector('.actions .btn:not(.outline)');
+        if(buyBtn){
+          buyBtn.addEventListener('click', (e)=>{
+            e.preventDefault();
+            pendingProductTitle = title;
+            if(localStorage.getItem('hasCard')==='1'){
+              openPay(priceText);
+            }else{
+              openPay(priceText);
+            }
+          });
+        }
+      });
+
+      overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closePay(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closePay(); });
+
+      
+      const sidebar = document.querySelector('aside.filters');
+      const filterBlocks = sidebar ? sidebar.querySelectorAll('.filter') : [];
+      const brandBlock = filterBlocks[0]; // first block is Brand
+      const brandChips = brandBlock ? brandBlock.querySelectorAll('.chip') : [];
+      const priceBlock = filterBlocks[1]; // second block is Price
+      const priceInputs = priceBlock ? priceBlock.querySelectorAll('input') : [];
+      const minInput = priceInputs[0];
+      const maxInput = priceInputs[1];
+      const grid = document.querySelector('.products .grid');
+      const cards = Array.from(grid?.querySelectorAll('.card') || []);
+      const countEl = document.querySelector('.page-title .count');
+
+      const selectedBrands = new Set();
+
+      function normalizeBrand(str){
+        const s = (str||'').toLowerCase();
+        if(s.includes('iphone') || s.includes('apple')) return 'Apple';
+        if(s.includes('samsung')) return 'Samsung';
+        if(s.includes('xiaomi')) return 'Xiaomi';
+        if(s.includes('realme')) return 'Realme';
+        return (str||'').trim();
+      }
+      function parsePrice(text){
+        if(text==null) return NaN;
+        const cleaned = text.replace(/\u202F|\s/g,'').replace(/[^0-9.,]/g,'').replace(/,(?=\d{2}$)/, '.');
+        const n = parseFloat(cleaned.replace(/,/g,'.'));
+        return isNaN(n) ? NaN : n;
+      }
+      function cardBrand(card){
+        const data = card.getAttribute('data-brand');
+        if(data) return data;
+        const title = card.querySelector('.title')?.textContent || '';
+        return normalizeBrand(title);
+      }
+      function cardPrice(card){
+        const data = card.getAttribute('data-price');
+        if(data) return parseFloat(data);
+        const t = card.querySelector('.price .now')?.textContent || '';
+        return parsePrice(t);
+      }
+      function updateCount(visible){
+        if(countEl){ countEl.textContent = visible + ' товаров'; }
+      }
+      function filterCards(){
+        const minVal = minInput ? parseFloat(minInput.value) : NaN;
+        const maxVal = maxInput ? parseFloat(maxInput.value) : NaN;
+        let shown = 0;
+        cards.forEach(card=>{
+          const b = cardBrand(card);
+          const p = cardPrice(card);
+          const brandOk = selectedBrands.size===0 || selectedBrands.has(b);
+          const minOk = isNaN(minVal) || (p>=minVal);
+          const maxOk = isNaN(maxVal) || (p<=maxVal);
+          const ok = brandOk && minOk && maxOk;
+          card.style.display = ok ? '' : 'none';
+          if(ok) shown++;
+        });
+        updateCount(shown);
+      }
+      brandChips.forEach(chip=>{
+        chip.addEventListener('click', ()=>{
+          const name = chip.textContent.trim();
+          if(chip.classList.contains('active')){
+            chip.classList.remove('active');
+            selectedBrands.delete(name);
+          }else{
+            chip.classList.add('active');
+            selectedBrands.add(name);
+          }
+          filterCards();
+        });
+      });
+      if(minInput) minInput.addEventListener('input', filterCards);
+      if(maxInput) maxInput.addEventListener('input', filterCards);
+
+      // initial compute of dynamic prices if data attribute not present
+      cards.forEach(card=>{
+        if(!card.getAttribute('data-price')){
+          const priceText = card.querySelector('.price .now')?.textContent || '';
+          const n = parsePrice(priceText);
+          if(!isNaN(n)) card.setAttribute('data-price', String(n));
+        }
+        if(!card.getAttribute('data-brand')){
+          card.setAttribute('data-brand', cardBrand(card));
+        }
+      });
+      filterCards();
+
+    })();
+  </script>
+</body>
+</html>

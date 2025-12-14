@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Моя карзина</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#121417;background:#fff}
+    .wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .top .brand{font-weight:700}
+    .btn{background:#e3423d;color:#fff;border-radius:8px;padding:10px 14px;text-decoration:none;display:inline-block}
+    .btn.outline{background:#f2f3f5;color:#121417;border:1px solid #d9dde4}
+    h1{margin:10px 0 16px;font-size:22px}
+    .muted{color:#5c6470}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{border-bottom:1px solid #eceef2;padding:10px;text-align:left}
+    th{background:#f9fafb;font-weight:600}
+    .empty{padding:20px;border:1px dashed #d9dde4;border-radius:8px;background:#f9fafb}
+    .actions{display:flex;gap:10px;margin-top:14px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">Emin Xanaxmedov</div>
+      <div class="actions">
+        <a class="btn outline" href="/">На главную</a>
+        <a class="btn outline" href="/shop">В магазин</a>
+        <a class="btn outline" href="/logout">Выйти</a>
+      </div>
+    </div>
+
+    <h1>Мои покупки</h1>
+
+    <div th:if="${session.orders == null or #lists.isEmpty(session.orders)}" class="empty muted">
+      Покупок пока нет. Перейдите в магазин и выберите товар.
+    </div>
+
+    <table th:if="${session.orders != null and !#lists.isEmpty(session.orders)}">
+      <thead>
+        <tr>
+          <th>Товар</th>
+          <th>Дата и время</th>
+          <th>Пользователь</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="o : ${session.orders}">
+          <td th:text="${o.product}">Product</td>
+          <td th:text="${o.time}">2025-11-08T18:10:00</td>
+          <td th:text="${o.username}">username</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

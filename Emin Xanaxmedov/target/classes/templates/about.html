@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — E‑commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- используем уже созданные стили страницы контактов -->
+  <link rel="stylesheet" href="/ccs/contact.css">
+  <style>
+    .story { padding: 24px 0 56px; }
+    .story p { color:#4b5563; line-height: 1.7; max-width: 780px; }
+    .section-muted { background:#f5f6f8; padding: 36px 0 56px; border-top:1px solid #e5e7eb; border-bottom:1px solid #e5e7eb;}
+    .team-title { text-align:center; font-weight:600; margin:0 0 20px; font-size:22px; }
+    .team { display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+    .member { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:22px; text-align:center; }
+    .member h4 { margin:0 0 6px; }
+    .member span { color:#6b7280; font-size:14px; }
+    @media (max-width:900px){ .team{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div class="promo">Summer Sale for All Suits And Express Delivery - OFF 50%! <a href="#">ShopNow</a></div>
+      <div class="lang">РУС ▾</div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header__row">
+      <div class="logo">Emin Xanaxmedov</div>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/contact">Contact</a>
+        <a class="active" href="/about">About</a>
+        <a href="/shop">Shop</a>
+       
+        <a href="/signup">Sign Up</a>
+      </nav>
+      <div class="actions">
+        <button class="icon" aria-label="Cart">🛒</button>
+        <a class="btn small" href="/login">Log In</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="story">
+      <h1 class="page-title">Our Story</h1>
+      <p>
+        Launched in 2015, Exclusive is South Asia’s premier online shopping marketplace with an active
+        presence in Bangladesh. Supported by a wide range of tailored marketing, data and service solutions,
+        Exclusive has 10,500 sellers and 300 brands and serves 3 million customers across the region.
+      </p>
+      <p>
+        Exclusive has more than 1 Million products to offer, growing at a very fast pace. Exclusive offers
+        a diverse assortment in categories ranging from consumer.
+      </p>
+    </section>
+
+    <section class="section-muted">
+      <div class="container">
+        <h2 class="team-title">Our Team</h2>
+        <div class="team">
+          <div class="member">
+            <h4>John Smith</h4>
+            <span>Designer</span>
+          </div>
+          <div class="member">
+            <h4>Alex Scones</h4>
+            <span>Developer</span>
+          </div>
+          <div class="member">
+            <h4>Patricia White</h4>
+            <span>Manager</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+  
+    <div class="container grid">
+      <div>
+        <h4>Exclusive</h4>
+        <p>Subscribe</p>
+        <p>Get 10% off your first order</p>
+        <form class="subscribe" action="#" method="post">
+          <input type="email" placeholder="Enter your email">
+          <button class="btn small">→</button>
+        </form>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <p>Dhaka, Bangladesh</p>
+        <p>exclusivea@gmail.com</p>
+        <p>+88015‑88888‑9999</p>
+      </div>
+      <div>
+        <h4>Account</h4>
+        <ul>
+          <li><a href="#">My Account</a></li>
+          <li><a href="/login">Login/Register</a></li>
+          <li><a href="#">Cart</a></li>
+          <li><a href="#">Wishlist</a></li>
+          <li><a href="/shop">Shop</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Quick Link</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms Of Use</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Download App</h4>
+        <p>Save $3 with App New User Only</p>
+        <div class="store">
+          <img alt="QR" src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Qr-2.png">
+          <div class="badges">
+            <img alt="Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png">
+            <img alt="App Store" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2025 Exclusive. All Rights Reserved</div>
+  </footer>
+</body>
+</html>

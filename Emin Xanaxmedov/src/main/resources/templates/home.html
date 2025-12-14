@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="google-site-verification" content="EtfR8-bhcmuOrQmJ2bUmLbPZ-4IkgyGzWVSx-YuPXII" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Интернет‑магазин • Главная</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --red:#e3423d;--red-dark:#cf3a35;--gray-50:#f9fafb;--gray-100:#f5f6f8;--gray-200:#eceef2;
+      --gray-300:#d9dde4;--gray-500:#a1a8b3;--gray-700:#5c6470;--black:#121417;--white:#ffffff
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";color:var(--black);background:var(--white);display:flex;flex-direction:column}
+    .promo{background:var(--red);color:var(--white);font-size:14px;line-height:1;padding:10px 16px;text-align:center}
+    .promo a{color:#ffecec;text-decoration:underline}
+    .nav{display:flex;align-items:center;gap:20px;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--gray-200);background:#fff;position:sticky;top:0;z-index:10}
+    .nav .brand{font-weight:700;font-size:22px}
+    .nav .links{display:flex;align-items:center;gap:18px}
+    .nav a{color:var(--black);text-decoration:none;font-weight:500}
+    .nav .pill{background:#f2f3f5;border:1px solid var(--gray-300);padding:8px 14px;border-radius:10px;color:var(--black)}
+    .nav .btn{background:var(--red);color:#fff;border-radius:8px;padding:9px 16px;display:inline-block}
+    .nav .btn:hover{background:var(--red-dark)}
+    .nav .search{display:flex;align-items:center;gap:8px;background:#f6f7f9;border:1px solid var(--gray-300);border-radius:10px;padding:8px 12px;width:320px}
+    .nav .search input{border:0;outline:0;background:transparent;width:100%}
+
+    .container{width:100%;max-width:1200px;margin:0 auto;padding:24px 16px}
+
+    /* Hero slider */
+    .hero{position:relative;border-radius:14px;overflow:hidden}
+    .slides{display:flex;transition:transform .6s ease}
+    .slide{min-width:100%;height:420px;background:#000;display:flex;align-items:center;justify-content:center;position:relative}
+    .slide img{width:100%;height:100%;object-fit:cover;opacity:.9}
+    .dots{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:8px}
+    .dot{width:10px;height:10px;border-radius:50%;background:#ffffff88;border:1px solid #fff;cursor:pointer}
+    .dot.active{background:#fff}
+
+    /* Categories */
+    .section-title{font-size:22px;font-weight:700;margin:28px 0 16px}
+    .grid{display:grid;gap:16px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .cat-card{position:relative;border-radius:12px;overflow:hidden;background:var(--gray-100);height:260px}
+    .cat-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}
+    .cat-card .label{position:absolute;left:16px;bottom:16px;background:#ffffffd8;padding:8px 12px;border-radius:8px;font-weight:600}
+
+    
+    .promo-banner{display:grid;grid-template-columns:2fr 1.2fr;gap:18px;align-items:stretch}
+    .promo-left img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+    .promo-right{background:#f1e2c6;border-radius:12px;padding:24px 20px;display:flex;flex-direction:column;justify-content:center}
+    .promo-right .eyebrow{color:#7a5f2f;font-weight:700;font-size:12px;letter-spacing:.08em}
+    .promo-right h3{margin:8px 0 6px;font-size:28px}
+    .countdown{display:flex;gap:10px;margin:12px 0 18px}
+    .timer{background:#fff;border:1px solid #e6d8b8;border-radius:10px;padding:10px 12px;min-width:72px;text-align:center}
+    .timer b{display:block;font-size:20px}
+    .promo-right .btn{align-self:flex-start}
+
+  
+    .special{position:relative;border-radius:14px;overflow:hidden;background:#0b0b0d;color:#fff;padding:32px 28px;display:grid;grid-template-columns:1.2fr 1fr;align-items:center}
+    .special h4{color:#b6b6b9;margin:0 0 6px;font-weight:600}
+    .special h2{margin:0 0 10px;font-size:36px}
+    .special p{margin:0 0 18px;color:#d8d8db}
+    .special img{width:100%;height:auto;justify-self:end}
+
+    
+    .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:18px}
+    .card h5{margin:0 0 8px;font-size:16px}
+    .muted{color:var(--gray-700);font-size:14px}
+
+    
+    .site-footer{margin-top:40px;background:linear-gradient(90deg,var(--red),var(--red-dark));color:#fff}
+    .site-footer .wrap{max-width:1200px;margin:0 auto;padding:32px 16px}
+    .site-footer .cols{display:grid;grid-template-columns:1.6fr 1.4fr 1fr 1fr 1.4fr;gap:24px}
+    .site-footer h6{margin:0 0 12px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;opacity:.9}
+    .site-footer a{color:#fff;text-decoration:none;opacity:.9}
+    .site-footer a:hover{opacity:1;text-decoration:underline}
+    .site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+    .subscribe{display:flex;gap:8px;margin-top:12px}
+    .subscribe input{flex:1;padding:10px 12px;border-radius:8px;border:1px solid #ffffff55;background:#ffffffee;color:#121417}
+    .subscribe button{background:#fff;color:var(--red-dark);border:0;border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .qr-app{display:flex;gap:12px;align-items:flex-start}
+    .store-btns{display:grid;gap:8px}
+    .store{display:inline-flex;gap:8px;align-items:center;background:#000;color:#fff;border-radius:10px;padding:8px 10px;border:1px solid #ffffff33}
+    .store small{display:block;font-size:10px;opacity:.8;line-height:1}
+    .store b{display:block;line-height:1}
+    .social{display:flex;gap:10px;margin-top:10px}
+    .social a{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;background:#ffffff22;border-radius:6px}
+
+    @media (max-width:900px){
+      .site-footer .cols{grid-template-columns:1fr 1fr}
+    }
+
+    @media (max-width:900px){
+      .promo-banner{grid-template-columns:1fr}
+      .special{grid-template-columns:1fr}
+      .testimonials{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .nav .search{width:100%}
+      .nav{flex-wrap:wrap}
+    }
+
+    .btn{background:var(--red);color:#fff;border-radius:8px;padding:10px 16px;display:inline-block;text-decoration:none}
+    .btn:hover{background:var(--red-dark)}
+  </style>
+</head>
+<body>
+  <div class="promo">Летняя распродажа и бесплатная экспресс‑доставка · Скидка 50%! <a href="/shop">Купить</a></div>
+
+  <div class="nav">
+    <div class="brand">Emin Xanaxmedov</div>
+    <div class="links">
+      <a href="/">Главная</a>
+      <a href="/contact">Контакты</a>
+      <a href="/about">О нас</a>
+      <a href="/signup">Регистрация</a>
+      <a class="btn" href="/shop">Магазин</a>
+    </div>
+    <div class="search"><input placeholder="Что вы ищете?" aria-label="Поиск"><span>🔍</span></div>
+    <a class="pill" th:if="${session.user == null}" href="/login">Войти</a>
+    <span class="pill" th:if="${session.user != null}" th:text="${session.user}">user</span>
+    <a class="pill" th:if="${session.user != null}" href="/my-orders">Мои покупки</a>
+    <a class="pill" th:if="${session.user != null}" href="/logout">Выйти</a>
+  </div>
+
+  <div class="container">
+    <!-- Hero slider -->
+    <div class="hero" id="hero">
+      <div class="slides" id="slides">
+        <div class="slide">
+          <img src="https://applealmond.com/wp-content/uploads/2025/07/1752931033-f3ccdd27d2000e3f9255a7e3e2c48800-1200x487.jpg" alt="Phone">
+        </div>
+        <div class="slide">
+          <img src="https://icdn.lenta.ru/images/2024/11/07/17/20241107171037350/preview_88783f277eb89cf36aa60b0f2e58e208.jpg" alt="Headphones">
+        </div>
+        <div class="slide">
+          <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-finish-unselect-gallery-1-202509_GEO_SA_FMT_WHH?wid=1280&hei=492&fmt=p-jpg&qlt=80&.v=WGdCRlQ0YVlqbTdXTEkxRnVQb0oxdFgrSXpWVEhWaW9YTGlWRHFoSHU0L081QWg2QTRhZlN3UVlmTnBWYThGWW4wZU5pVHVHdUU0SU0vdlcrc3NTQ1NzRVdVYUZMK2pnb0pYa1BITFFSbEwxcjBVRyswWG14bEI4WVZBcUIybEYrZlNvWVlGYUpqOWtFeDNSYXdrRy93&traceId=1" alt="Accessories">
+        </div>
+      </div>
+      <div class="dots" id="dots"></div>
+    </div>
+
+    <!-- Categories -->
+    <h3 class="section-title">Категории</h3>
+    <div class="grid grid-3">
+      <a class="cat-card" href="/shop?cat=headphones">
+        <img src="https://myfix.by/static/products/1538/original/%D0%BA%D1%83%D0%BF%D0%B8%D1%82%D1%8C%20Airpods%20max%20%20%D0%BA%D0%BE%D0%BF%D0%B8%D1%8E%20%D0%B2%20%D0%BE%D1%80%D1%88%D0%B5.webp" alt="Headphones">
+        <div class="label">Headphones</div>
+      </a>
+      <a class="cat-card" href="/shop?cat=earphones">
+        <img src="https://gix.ru/upload/dev2fun.imagecompress/webp/iblock/ecf/r3ac7voi9zid3yeqno3brbsrppomezoy.webp" alt="Earphones">
+        <div class="label">Earphones</div>
+      </a>
+      <a class="cat-card" href="/shop?cat=accessories">
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop" alt="Accessories">
+        <div class="label">Accessories</div>
+      </a>
+    </div>
+
+    
+    <h3 class="section-title">Акция</h3>
+    <div class="promo-banner">
+      <div class="promo-left">
+        <img src="https://808.media/wp-content/uploads/2019/09/1-3.jpg" alt="Promo">
+      </div>
+      <div class="promo-right">
+        <div class="eyebrow">PROMOTION</div>
+        <h3>Успейте! 40% СКИДКА</h3>
+        <div class="muted">Тысячи товаров ждут вас.</div>
+        <div class="countdown" id="countdown">
+          <div class="timer"><b id="d">00</b>дни</div>
+          <div class="timer"><b id="h">00</b>часы</div>
+          <div class="timer"><b id="m">00</b>мин</div>
+          <div class="timer"><b id="s">00</b>сек</div>
+        </div>
+        <a class="btn" href="/shop">Купить сейчас</a>
+      </div>
+    </div>
+
+    
+    <h3 class="section-title">Специальное предложение</h3>
+    <div class="special">
+      <div>
+        <h4>Pro. Beyond.</h4>
+        <h2>iPhone 14 Pro</h2>
+        <p>Создан, чтобы менять всё к лучшему. Для всех.</p>
+        <a class="btn" href="/shop?product=iphone14pro">Shop Now</a>
+      </div>
+      <img src="https://technolider24.ru/upload/iblock/b4b/19l90r37kt4eksvw50xbt4ipe9vo9ihb.jpg" alt="iPhone 14 Pro">
+    </div>
+
+    
+    <h3 class="section-title">Feedback Corner</h3>
+    <div class="testimonials">
+      <div class="card">
+        <h5>Emily Wilson</h5>
+        <div class="muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet iusto voluptatibus...</div>
+      </div>
+      <div class="card" style="background:#ffe9e3;">
+        <h5>Sarah Thompson</h5>
+        <div class="muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet iusto voluptatibus...</div>
+      </div>
+      <div class="card">
+        <h5>Olivia Martinez</h5>
+        <div class="muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet iusto voluptatibus...</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <h6>Exclusive</h6>
+          <ul>
+            <li>Subscribe</li>
+            <li>Get 10% off your first order</li>
+          </ul>
+          <form class="subscribe" onsubmit="event.preventDefault();alert('Спасибо!');">
+            <input type="email" placeholder="Введите ваш email" required>
+            <button type="submit">OK</button>
+          </form>
+        </div>
+        <div>
+          <h6>Support</h6>
+          <ul>
+            <li>Dhaka, Bangladesh</li>
+            <li><a href="mailto:exclusive@gmail.com">exclusive@gmail.com</a></li>
+            <li><a href="tel:+8801588889999">+88015-88888-9999</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Account</h6>
+          <ul>
+            <li><a href="/account">My Account</a></li>
+            <li><a href="/login">Login/Register</a></li>
+            <li><a href="/cart">Cart</a></li>
+            <li><a href="/wishlist">Wishlist</a></li>
+            <li><a href="/shop">Shop</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Quick Link</h6>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms Of Use</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Download App</h6>
+          <div style="font-size:12px;opacity:.9;margin-bottom:8px">Save $3 with App New User Only</div>
+          <div class="qr-app">
+            <img alt="QR" width="92" height="92" src="https://api.qrserver.com/v1/create-qr-code/?size=92x92&data=https%3A%2F%2Fexample.com">
+            <div class="store-btns">
+              <a class="store" href="#" aria-label="Google Play">
+                <small>GET IT ON</small>
+                <b>Google Play</b>
+              </a>
+              <a class="store" href="#" aria-label="App Store">
+                <small>Download on the</small>
+                <b>App Store</b>
+              </a>
+            </div>
+          </div>
+          <div class="social">
+            <a href="#" title="Facebook">f</a>
+            <a href="#" title="Twitter">x</a>
+            <a href="#" title="Instagram">◎</a>
+            <a href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+   
+    const slides = document.getElementById('slides');
+    const hero = document.getElementById('hero');
+    const dotsWrap = document.getElementById('dots');
+    const count = slides.children.length;
+    let idx = 0, timer;
+
+    function renderDots(){
+      dotsWrap.innerHTML = '';
+      for(let i=0;i<count;i++){
+        const d = document.createElement('div');
+        d.className = 'dot' + (i===idx?' active':'');
+        d.onclick = ()=>go(i);
+        dotsWrap.appendChild(d);
+      }
+    }
+    function go(i){
+      idx = (i+count)%count;
+      slides.style.transform = `translateX(${-idx*100}%)`;
+      renderDots();
+      restart();
+    }
+    function next(){ go(idx+1); }
+    function start(){ timer = setInterval(next, 4000); }
+    function stop(){ clearInterval(timer); }
+    function restart(){ stop(); start(); }
+
+    renderDots(); start();
+    hero.addEventListener('mouseenter', stop);
+    hero.addEventListener('mouseleave', start);
+
+    
+    const target = Date.now() + 12*60*60*1000;
+    const dEl = document.getElementById('d'), hEl = document.getElementById('h'), mEl = document.getElementById('m'), sEl = document.getElementById('s');
+    setInterval(()=>{
+      let diff = target - Date.now();
+      if (diff < 0) diff = 0;
+      const d = Math.floor(diff/86400000);
+      const h = Math.floor((diff%86400000)/3600000);
+      const m = Math.floor((diff%3600000)/60000);
+      const s = Math.floor((diff%60000)/1000);
+      dEl.textContent = String(d).padStart(2,'0');
+      hEl.textContent = String(h).padStart(2,'0');
+      mEl.textContent = String(m).padStart(2,'0');
+      sEl.textContent = String(s).padStart(2,'0');
+    }, 1000);
+  </script>
+</body>
+</html>

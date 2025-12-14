@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create product</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#111;background:#fff}
+    .topbar{background:#e34b44;color:#fff;text-align:center;padding:10px 16px;font-size:14px}
+    .container{max-width:900px;margin:32px auto;padding:0 16px}
+    h1{font-size:28px;text-align:center;margin:0 0 24px}
+    form{max-width:520px;margin:0 auto}
+    .field{margin-bottom:14px}
+    label{display:block;font-size:14px;color:#444;margin-bottom:6px}
+    input[type="text"], input[type="number"], textarea{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;outline:none}
+    textarea{min-height:90px;resize:vertical}
+    .actions{display:flex;gap:10px;margin-top:8px}
+    .btn{background:#2d7ef7;color:#fff;border:none;border-radius:6px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .btn.secondary{background:#ffb020;color:#111}
+    .muted{color:#6b7280;font-size:13px}
+    .preview{margin-top:8px}
+    .preview img{max-width:240px;border:1px solid #eee;border-radius:6px;display:block}
+    .nav{margin-top:18px;text-align:center}
+    .link{color:#1f6feb;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="topbar">Summer Sale For All Swim Suits And Free Express Delivery ~ OFF 50% | <strong>ShopNow</strong></div>
+  <div class="container">
+    <h1>Create product</h1>
+
+    <form action="/products" method="post">
+      <div class="field">
+        <label for="brand">Brand</label>
+        <input id="brand" name="brand" type="text" placeholder="" required>
+      </div>
+      <div class="field">
+        <label for="model">Model</label>
+        <input id="model" name="model" type="text" placeholder="" required>
+      </div>
+      <div class="field">
+        <label for="category">Category</label>
+        <input id="category" name="category" type="text" placeholder="" required>
+      </div>
+      <div class="field">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" placeholder=""></textarea>
+      </div>
+      <div class="field">
+        <label for="price">Price</label>
+        <input id="price" name="price" type="text" placeholder="" required>
+      </div>
+      <div class="field">
+        <label for="rating">Rating</label>
+        <input id="rating" name="rating" type="text" placeholder="">
+      </div>
+      <div class="field">
+        <label for="imageUrl">Image URL</label>
+        <input id="imageUrl" name="imageUrl" type="text" placeholder="https://...">
+        <div class="preview">
+          <span class="muted">Preview</span>
+          <img id="imgPreview" alt="Preview" src="" onerror="this.src='https://via.placeholder.com/240x160?text=No+Image'">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" type="submit">Save</button>
+        <button class="btn secondary" type="reset">Reset</button>
+      </div>
+    </form>
+
+    <div class="nav">
+      <a class="link" href="/shop">Back to Shop</a>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const url = document.getElementById('imageUrl');
+      const img = document.getElementById('imgPreview');
+      function update(){
+        const v = (url.value||'').trim();
+        if(v){ img.src = v; } else { img.src = 'https://via.placeholder.com/240x160?text=No+Image'; }
+      }
+      url.addEventListener('input', update);
+      update();
+    })();
+  </script>
+</body>
+</html>

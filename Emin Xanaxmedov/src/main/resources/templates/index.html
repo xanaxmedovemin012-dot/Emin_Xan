@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emin Xanaxmedov • Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--red:#e3423d;--red-dark:#cf3a35;--gray-100:#f5f6f8;--gray-200:#eceef2;--gray-300:#d9dde4;--gray-500:#a1a8b3;--gray-700:#5c6470;--black:#121417;--white:#ffffff}
+    *{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";color:var(--black);background:var(--white);display:flex;flex-direction:column}
+    .promo{background:var(--red);color:var(--white);font-size:14px;line-height:1;padding:10px 16px;text-align:center}
+    .promo a{color:#ffecec;text-decoration:underline}
+    .nav{display:flex;align-items:center;gap:20px;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--gray-200);background:#fff}
+    .nav .brand{font-weight:700;font-size:22px}
+    .nav .links{display:flex;align-items:center;gap:18px}
+    .nav a{color:var(--black);text-decoration:none;font-weight:500}
+    .nav .pill{background:#f2f3f5;border:1px solid var(--gray-300);padding:8px 14px;border-radius:10px;color:var(--black)}
+    .nav .btn{background:var(--red);color:#fff;border-radius:8px;padding:9px 16px;display:inline-block}
+    .nav .btn:hover{background:var(--red-dark)}
+    .nav .search{display:flex;align-items:center;gap:8px;background:#f6f7f9;border:1px solid var(--gray-300);border-radius:10px;padding:8px 12px;width:280px}
+    .nav .search input{border:0;outline:0;background:transparent;width:100%}
+    .container{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 16px}
+    .card{width:100%;max-width:720px;margin:0 auto}
+    h1{font-size:36px;font-weight:700;text-align:center;margin:16px 0 24px}
+    form{display:flex;flex-direction:column;gap:14px}
+    label{font-weight:600;font-size:14px;color:var(--gray-700)}
+    input[type=text],input[type=password]{padding:12px 14px;border:1px solid var(--gray-300);border-radius:8px;font-size:15px;width:100%}
+    .primary{background:var(--red);color:#fff;border:0;border-radius:8px;padding:12px 16px;font-weight:600;cursor:pointer}
+    .primary:hover{background:var(--red-dark)}
+    /* Site footer */
+    .site-footer{margin-top:auto;background:linear-gradient(90deg,var(--red),var(--red-dark));color:#fff}
+    .site-footer .wrap{max-width:1200px;margin:0 auto;padding:32px 16px}
+    .site-footer .cols{display:grid;grid-template-columns:1.6fr 1.4fr 1fr 1fr 1.4fr;gap:24px}
+    .site-footer h6{margin:0 0 12px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;opacity:.9}
+    .site-footer a{color:#fff;text-decoration:none;opacity:.9}
+    .site-footer a:hover{opacity:1;text-decoration:underline}
+    .site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+    .subscribe{display:flex;gap:8px;margin-top:12px}
+    .subscribe input{flex:1;padding:10px 12px;border-radius:8px;border:1px solid #ffffff55;background:#ffffffee;color:#121417}
+    .subscribe button{background:#fff;color:var(--red-dark);border:0;border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .qr-app{display:flex;gap:12px;align-items:flex-start}
+    .store-btns{display:grid;gap:8px}
+    .store{display:inline-flex;gap:8px;align-items:center;background:#000;color:#fff;border-radius:10px;padding:8px 10px;border:1px solid #ffffff33}
+    .store small{display:block;font-size:10px;opacity:.8;line-height:1}
+    .store b{display:block;line-height:1}
+    .social{display:flex;gap:10px;margin-top:10px}
+    .social a{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;background:#ffffff22;border-radius:6px}
+    @media (max-width:720px){.nav{flex-wrap:wrap;gap:10px}.nav .search{order:3;width:100%}.links{flex-wrap:wrap}}
+  </style>
+</head>
+<body>
+  <div class="promo">Summer Sale For All Swim Suits And Free Express Delivery · OFF 50%! <a href="#">ShopNow</a></div>
+  <div class="nav">
+    <div class="brand">Emin Xanaxmedov</div>
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/contact">Contact</a>
+      <a href="/about">About</a>
+      <a href="/signup">Sign Up</a>
+      <a class="btn" href="/shop">Shop</a>
+    </div>
+    <div class="search"><input placeholder="What are you looking for?" aria-label="Search"><span>🔍</span></div>
+    <a class="pill" href="/login">log in</a>
+  </div>
+  <div class="container">
+    <div class="card">
+      <h1>Log in</h1>
+      <form method="post" action="/login">
+        <div>
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" autocomplete="username" required>
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="primary" type="submit">Log in</button>
+      </form>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <h6>Exclusive</h6>
+          <ul>
+            <li>Subscribe</li>
+            <li>Get 10% off your first order</li>
+          </ul>
+          <form class="subscribe" onsubmit="event.preventDefault();alert('Спасибо!');">
+            <input type="email" placeholder="Введите ваш email" required>
+            <button type="submit">OK</button>
+          </form>
+        </div>
+        <div>
+          <h6>Support</h6>
+          <ul>
+            <li>Dhaka, Bangladesh</li>
+            <li><a href="mailto:exclusive@gmail.com">exclusive@gmail.com</a></li>
+            <li><a href="tel:+8801588889999">+88015-88888-9999</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Account</h6>
+          <ul>
+            <li><a href="/account">My Account</a></li>
+            <li><a href="/login">Login/Register</a></li>
+            <li><a href="/cart">Cart</a></li>
+            <li><a href="/wishlist">Wishlist</a></li>
+            <li><a href="/shop">Shop</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Quick Link</h6>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms Of Use</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Download App</h6>
+          <div style="font-size:12px;opacity:.9;margin-bottom:8px">Save $3 with App New User Only</div>
+          <div class="qr-app">
+            <img alt="QR" width="92" height="92" src="https://api.qrserver.com/v1/create-qr-code/?size=92x92&data=https%3A%2F%2Fexample.com">
+            <div class="store-btns">
+              <a class="store" href="#" aria-label="Google Play">
+                <small>GET IT ON</small>
+                <b>Google Play</b>
+              </a>
+              <a class="store" href="#" aria-label="App Store">
+                <small>Download on the</small>
+                <b>App Store</b>
+              </a>
+            </div>
+          </div>
+          <div class="social">
+            <a href="#" title="Facebook">f</a>
+            <a href="#" title="Twitter">x</a>
+            <a href="#" title="Instagram">◎</a>
+            <a href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
